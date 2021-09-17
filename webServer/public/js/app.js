@@ -12,15 +12,17 @@ weatherForm.addEventListener("submit", (event) => {
   const location = searchElement.value;
 
   // clear data
-  errorData.textContent = "";
-  weatherData.textContent = "";
+
+  weatherData.textContent = "Loading...";
 
   fetch(`/weather?location=${location}`).then((res) => {
     res.json().then((data) => {
       if (data.error) {
+        weatherData.textContent = "";
         errorData.textContent = data.error;
       } else {
         weatherData.textContent = `${data.location} ${data.forecast}`;
+        errorData.textContent = "";
       }
     });
   });
